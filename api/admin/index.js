@@ -32,7 +32,7 @@
 exports.allwines = function(req, res, next){
 
 req.app.db.models.Wine.findAll({
-      attributes: ['id', 'rating', 'createdById']
+      attributes: ['id', 'myRating', 'createdById']
    }).then(function(items) {
     
       console.log('Items returned.');

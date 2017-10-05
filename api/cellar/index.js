@@ -9,7 +9,7 @@ exports.find = function(req, res, next){
 
   req.app.db.models.Wine.findAll({
       where: { createdById: userid },
-      attributes: ['id', 'grape', 'estate', 'name', 'notes', 'rating', 'createdById']
+      attributes: ['id', 'varietal', 'producer', 'wineName', 'vintage', 'quantity', 'myNotes', 'myRating', 'createdById', 'createdAt']
    }).then(function(items) {
     
       console.log('Items returned.');
@@ -45,7 +45,7 @@ exports.findOne = function(req, res, next){
         createdById: userid,
         id: req.params.id
        },
-      attributes: ['id', 'grape', 'estate', 'name', 'notes', 'rating', 'createdById']
+      attributes: ['id', 'varietal', 'producer', 'wineName', 'vintage', 'quantity', 'myNotes', 'myRating', 'createdById', 'createdAt']
    }).then(function(item) {
     
       console.log('Item returned.');
@@ -82,13 +82,14 @@ exports.create = function(req, res, next){
 
   workflow.on('createWine', function() {
 
-
     var wine = req.app.db.models.Wine.build({
-      grape: req.body.grape,
-      estate: req.body.estate,
-      name: req.body.name,
-      notes: req.body.notes,
-      rating: req.body.rating,
+      varietal  : req.body.varietal,
+      producer: req.body.producer,
+      wineName: req.body.wineName,
+      vintage: req.body.vintage,
+      quantity: req.body.quantity,
+      myNotes: req.body.myNotes,
+      myRating: req.body.myRating,
       createdById: req.body.createdById,
       createdByName: req.body.createdByname
     });
@@ -127,13 +128,16 @@ exports.update = function(req, res, next){
     workflow.emit('patchItem');
   });
 
+  //FIX THIS
   workflow.on('patchItem', function() {
     var fieldsToSet = {
-      grape: req.body.grape,
-      estate: req.body.estate,
-      name: req.body.name,
-      notes: req.body.notes,
-      rating: req.body.rating,
+      varietal  : req.body.varietal,
+      producer: req.body.producer,
+      wineName: req.body.wineName,
+      vintage: req.body.vintage,
+      quantity: req.body.quantity,
+      myNotes: req.body.myNotes,
+      myRating: req.body.myRating,
       //createdById: req.body.createdById,
       //createdByName: req.body.createdByname
     };
